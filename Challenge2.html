@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Ultimate Pokemon Listing</title>
+  <meta name="description" content="Ultimate Pokemon Listing">
+  <meta name="author" content="Emmanouil Lysikatos">
+  
+
+</head>
+
+<body>
+    <h1>Pokemon Listing</h1>
+    <ul id="pokemons" style="list-style-type: none;">
+
+    </ul>
+  <script>
+      var http = new XMLHttpRequest();
+          http.open("GET", "https://api.satisupp.com/pokedex");
+          http.onreadystatechange= function (result){
+            if (http.readyState == XMLHttpRequest.DONE) {
+              var data = JSON.parse(http.responseText);
+              console.log(result.responseText);
+              var listing = "";
+              
+                if(data["status"]==="success"){
+                    for(var  i=0; i<data["data"].length;i++){
+                        var types = "";
+                        for(var j=0; j<data["data"][i]["type"].length; j++){
+                            types += data["data"][i]["type"][j];
+                            if(j<data["data"][i]["type"].length-1)
+                                types += ",";
+                        }
+                        listing += '<li>'+data["data"][i]["name"]["english"]+' - '+types+'</li>';
+                    }
+                }else{
+                    alert("Couldn't fetch data");
+                    console.error("Couldn't fetch data")
+                }
+                document.getElementById("pokemons").insertAdjacentHTML('beforeend', listing);
+              
+            }
+          };
+          http.send();
+  </script>
+</body>
+</html>
