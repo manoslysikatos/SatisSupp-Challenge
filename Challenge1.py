@@ -1,17 +1,22 @@
-#f = open('input.txt', 'r')
-#for line in f.readlines():
-    
+#Update Python File after the completion of time
 
-#Due to lack of time didnt complete the "Read from file" process
+f = open('input.txt', 'r')
+i=0
+for line in f.readlines():
+    if(i==0):
+        inputs = [int(s) for s in line.split() if s.isdigit()]
+        i=1
+    else:
+        rangeCount = [int(s) for s in line.split() if s.isdigit()]
 
-a = 2
-b = 3
+a = inputs[0]
+b = inputs[1]
 count1 = 0
 count2 = 0
 count3 = 0
 count4 = 0
-startRange = 0
-finishRange = 20
+startRange = rangeCount[0]
+finishRange = rangeCount[1]
 
 for x in range(startRange , finishRange):
    if x % a == 0:
